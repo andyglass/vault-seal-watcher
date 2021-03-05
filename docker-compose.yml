@@ -1,0 +1,40 @@
+version: "2.4"
+
+services:
+
+  vault-seal-watcher:
+    build:
+      context: .
+      network: host
+    environment:
+      VAULT_ADDR: http://vault:8200
+    ports:
+      - 8000:8000
+    depends_on:
+      - vault
+
+  vault:
+    image: vault:latest
+    cap_add:
+      - IPC_LOCK
+    environment:
+      VAULT_UI: "true"
+      VAULT_LOG_LEVEL: info
+      VAULT_LOCAL_CONFIG: '{
+        "listener": {
+          "tcp": {
+            "address": "0.0.0.0:8200",
+            "tls_disable": 1
+          }
+        },
+        "backend": {
+          "file": {
+            "path": "/vault/file"
+          }
+        },
+        "default_lease_ttl": "168h",
+        "max_lease_ttl": "720h"
+      }'
+    ports:
+      - 8200:8200
+    command: server
