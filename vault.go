@@ -92,7 +92,7 @@ func (s *Server) UnsealVault() error {
 		KeyProgress:  seal.Progress,
 	}
 
-	if len(s.Cfg.VaultUnsealKeys) != vault.KeyThreshold {
+	if len(s.Cfg.VaultUnsealKeys) < vault.KeyThreshold {
 		return fmt.Errorf(
 			"Provided count of unseal key-shares (%d) less than key-threshold (%d)",
 			len(s.Cfg.VaultUnsealKeys),
