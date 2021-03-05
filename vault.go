@@ -1,6 +1,7 @@
 package main
 
 import (
+	"crypto/tls"
 	"fmt"
 	"net/http"
 	"time"
@@ -24,11 +25,16 @@ type (
 	}
 )
 
-func getVaultClient(vaultAddr string, vaultTimeout time.Duration) (*api.Client, error) {
+func getVaultClient(vaultAddr string, vaultTimeout time.Duration, insecureSkipVerify bool) (*api.Client, error) {
 	vault, err := api.NewClient(&api.Config{
 		Address: vaultAddr,
 		HttpClient: &http.Client{
 			Timeout: vaultTimeout,
+			Transport: &http.Transport{
+				TLSClientConfig: &tls.Config{
+					InsecureSkipVerify: insecureSkipVerify,
+				},
+			},
 		}})
 	if err != nil {
 		return nil, err

@@ -24,6 +24,7 @@ docker-compose up --build
 | `SERVER_WRITE_TIMEOUT` | `10s` | `duration` | Web server write timeout |
 | `VAULT_ADDR` | `http://localhost:8200` | `string` | Vault Http(s) address |
 | `VAULT_TIMEOUT` | `10s` | `duration` | Timeout on connect to Vault server |
+| `VAULT_SKIP_TLS_VERIFY` | `false` | `bool` | Skip TLS verify on requests to Vault server |
 | `VAULT_UNSEAL_KEYS` | `nil` | `string` | Comma-separated list of key-shares |
 | `VAULT_UNSEAL_DELAY` | `200ms` | `duration` | Delay between using key-shares to unseal |
 | `VAULT_WATCH_PERIOD` | `60s` | `duration` | Delay between checking Vault seal status |

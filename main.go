@@ -20,7 +20,8 @@ type Server struct {
 // NewServer constructor
 func NewServer() *Server {
 	cfg := config.Cfg
-	vault, err := getVaultClient(cfg.VaultAddr, cfg.VaultTimeout)
+
+	vault, err := getVaultClient(cfg.VaultAddr, cfg.VaultTimeout, cfg.VaultSkipTLSVerify)
 	if err != nil {
 		logger.Log.Fatal(err)
 	}
