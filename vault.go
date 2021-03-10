@@ -63,7 +63,6 @@ func (s *Server) GetVaultHealth() (*VaultHealth, error) {
 		vaultHealthInit = false
 
 		logger.Log.Infof("Vault address: %s", vault.Address)
-		logger.Log.Infof("Vault cluster: %s", vault.ClusterName)
 		logger.Log.Infof("Vault version: %s", vault.Version)
 		logger.Log.Infof("Vault initialized: %v", vault.Initialized)
 		logger.Log.Infof("Vault standby: %v", vault.Standby)
@@ -135,7 +134,7 @@ func (s *Server) RunVaultWatcher() {
 				"initialized": vault.Initialized,
 				"standby":     vault.Standby,
 				"sealed":      vault.Sealed,
-			}).Infof("")
+			}).Debugf("")
 
 		if !vault.Initialized {
 			logger.Log.Warn("Vault initialization required")
